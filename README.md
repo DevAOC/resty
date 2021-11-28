@@ -12,6 +12,10 @@ Today we are tasked with refactoring some starter React app code from class comp
 
 <img src="./img/part-one-uml.png" alt="part-one-uml" />
 
+### Part Two
+
+In part two we were to add state as needed.
+
 ## Components
 
 - Header
