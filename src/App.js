@@ -12,14 +12,18 @@ export default function App() {
   const [requestParams, setRequestParams] = useState({ url: '', method: '' });
 
   const callApi = async (formParams) => {
-    const response = await axios.get(formParams.url);
-    const responseData = {
-      headers: response.data.headers,
-      count: response.data.count,
-      res: response.data.results,
-    };
-    setData(responseData);
-    setRequestParams({ ...requestParams, ...formParams });
+    try {
+      const response = await axios.get(formParams.url);
+      const responseData = {
+        headers: response.data.headers,
+        count: response.data.count,
+        res: response.data.results,
+      };
+      setData(responseData);
+      setRequestParams({ ...requestParams, ...formParams });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
