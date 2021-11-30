@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import './app.scss';
+import './App.scss';
 
 import Header from './components/header';
 import Footer from './components/footer';
