@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import axios from 'axios';
 import './App.scss';
 
@@ -8,10 +8,26 @@ import Form from './components/form';
 import Results from './components/results';
 
 export default function App() {
-  const [data, setData] = useState(null);
-  const [requestParams, setRequestParams] = useState({ url: '', method: '' });
+  // getter and setter (setter now injest and action to supply the reducer)
+  const [state, dispatch] = useReducer(
+    (state, action) => {
+      switch (action.type) {
+        case 'ADD_PERSON':
+          return {
+            count: state.count + 1,
+            data: [...state.data, action.payload],
+          };
+        default:
+          return state;
+      }
+    },
+    {
+      data: null,
+      params: { url: '', method: '' },
+    }
+  );
 
-  const callApi = async (formParams) => {
+  const handleStateChange = async (formParams) => {
     try {
       const response = await axios.get(formParams.url);
       const responseData = {
@@ -19,20 +35,30 @@ export default function App() {
         count: response.data.count,
         res: response.data.results,
       };
-      setData(responseData);
+      dispatch(responseData);
       setRequestParams({ ...requestParams, ...formParams });
     } catch (error) {
       console.log(error);
     }
   };
 
+  // our addPerson action creator
+  function handleAddPerson(name) {
+    let action = {
+      type: 'ADD_PERSON',
+      payload: name,
+    };
+
+    dispatch(action);
+  }
+
   return (
     <>
       <Header />
-      <Form setRequestParams={setRequestParams} handleApiCall={callApi} />
-      <div id="requestMethod">Request Method: {requestParams.method}</div>
-      <div id="url">URL: {requestParams.url}</div>
-      {data ? <Results data={data} /> : <p>Loading</p>}
+      <Form handleStateChange={handleStateChange} />
+      <div id="requestMethod">Request Method: {state.params.method}</div>
+      <div id="url">URL: {state.params.url}</div>
+      {state.data ? <Results data={state.data} /> : <p>Loading</p>}
       <Footer />
     </>
   );
