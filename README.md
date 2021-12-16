@@ -4,6 +4,10 @@
 
 Antoine Charette
 
+## Contributors
+
+Sarah Creagar
+
 ## Problem Domain
 
 ### Part One
@@ -22,3 +26,11 @@ In part two we were to add state as needed.
 - Footer
 - Results
 - Form
+
+## Part Three
+
+In this part, I added axios and connected the app to the starwars api.
+
+## Part Four
+
+This part allows users to see a list of previous api calls.

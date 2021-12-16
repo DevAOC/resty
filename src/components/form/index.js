@@ -41,7 +41,6 @@ export default function Form(props) {
           </button>
         </label>
         <textarea onChange={(e) => setReqData(e.target.value)} name="json" />
-        {/* Need to add the conditionals for POST and PUT... This text area should only show when using those methods */}
       </form>
     </>
   );
